@@ -1,0 +1,76 @@
+/* ==========================================
+   STEVCODE UNIVERSITY DESIGN SYSTEM
+========================================== */
+
+:root {
+
+    /* ========= COLORS ========= */
+
+    --primary-color: #2563EB;
+    --primary-dark: #1D4ED8;
+    --primary-light: #DBEAFE;
+
+    --secondary-color: #3B82F6;
+
+    --success-color: #22C55E;
+    --warning-color: #F59E0B;
+    --danger-color: #EF4444;
+
+    --background-color: #F8FAFC;
+    --card-color: #FFFFFF;
+
+    --text-color: #0F172A;
+    --text-light: #64748B;
+
+    --border-color: #E2E8F0;
+
+    /* ========= FONT ========= */
+
+    --font-family: 'Poppins', sans-serif;
+
+    /* ========= FONT SIZE ========= */
+
+    --fs-title: 2.2rem;
+    --fs-heading: 1.7rem;
+    --fs-subheading: 1.2rem;
+    --fs-body: 1rem;
+    --fs-small: .9rem;
+
+    /* ========= FONT WEIGHT ========= */
+
+    --fw-light:300;
+    --fw-normal:400;
+    --fw-medium:500;
+    --fw-semibold:600;
+    --fw-bold:700;
+
+    /* ========= SPACING ========= */
+
+    --space-xs:8px;
+    --space-sm:12px;
+    --space-md:16px;
+    --space-lg:24px;
+    --space-xl:32px;
+    --space-2xl:48px;
+    --space-3xl:64px;
+
+    /* ========= BORDER RADIUS ========= */
+
+    --radius-sm:8px;
+    --radius-md:12px;
+    --radius-lg:18px;
+    --radius-xl:24px;
+
+    /* ========= SHADOW ========= */
+
+    --shadow-sm:0 2px 8px rgba(0,0,0,.05);
+
+    --shadow-md:0 10px 30px rgba(0,0,0,.08);
+
+    --shadow-lg:0 20px 45px rgba(0,0,0,.12);
+
+    /* ========= TRANSITIONS ========= */
+
+    --transition:.3s ease;
+
+}

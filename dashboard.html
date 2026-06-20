@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard</title>
+
+    <link rel="stylesheet" href="css/dashboard.css">
+</head>
+
+<body>
+
+<div class="dashboard-container">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+
+        <h2 class="logo">StevCode</h2>
+
+        <nav>
+
+            <a href="#" class="active">📊 Dashboard</a>
+
+            <a href="#">👤 Profile</a>
+
+            <a href="#">📚 Courses</a>
+
+            <a href="#">📝 Results</a>
+
+            <a href="#">💳 Fees</a>
+
+            <a href="#">📅 Timetable</a>
+
+            <a href="#">📢 Announcements</a>
+
+            <button id="logout-btn">
+                🚪 Logout
+            </button>
+
+        </nav>
+
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+
+        <header class="topbar">
+
+            <h2 id="welcome-message">
+                Welcome
+            </h2>
+
+        </header>
+
+        <!-- Student Card -->
+
+        <section class="student-card">
+
+            <h3>Student Information</h3>
+
+            <p><strong>Student ID:</strong> <span id="student-id"></span></p>
+
+            <p><strong>Department:</strong> <span id="department"></span></p>
+
+            <p><strong>Level:</strong> <span id="level"></span></p>
+
+            <p><strong>CGPA:</strong> <span id="cgpa"></span></p>
+
+            <p><strong>Fees:</strong> <span id="fees"></span></p>
+            <p><strong>Semester:</strong> <span id="semester"></span></p>
+
+        </section>
+
+        <!-- Stats -->
+
+        <section class="stats">
+
+            <div class="card">
+                <h3>📚 Courses</h3>
+                <p>6</p>
+            </div>
+
+            <div class="card">
+                <h3>📝 Results</h3>
+                <p>View</p>
+            </div>
+
+            <div class="card">
+                <h3>💳 Fees</h3>
+                <p id="fees-card"></p>
+            </div>
+
+            <div class="card">
+                <h3>🎓 CGPA</h3>
+                <p id="cgpa-card"></p>
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+<script src="js/students.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/dashboard.js"></script>
+
+</body>
+</html>
