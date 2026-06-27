@@ -73,4 +73,30 @@
 
     --transition:.3s ease;
 
+        /* Primary */
+        --primary-color: #2563eb;
+        --primary-dark: #1d4ed8;
+
+        /* Success */
+        --success-color: #16a34a;
+        --success-light: #dcfce7;
+
+        /* Warning */
+        --warning-color: #f59e0b;
+        --warning-light: #fef3c7;
+
+        /* Danger */
+        --danger-color: #dc2626;
+        --danger-light: #fee2e2;
+
+        /* Info */
+        --info-color: #0ea5e9;
+        --info-light: #e0f2fe;
+
+        /* Neutral */
+        --text-dark: #1f2937;
+        --text-light: #6b7280;
+        --card-bg: #ffffff;
+        --page-bg: #f4f6f9;
+
 }

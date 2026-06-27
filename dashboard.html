@@ -5,101 +5,462 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Dashboard</title>
 
+    <link rel="stylesheet" href="css/variables.css">
     <link rel="stylesheet" href="css/dashboard.css">
+
 </head>
 
 <body>
 
-<div class="dashboard-container">
+<div class="dashboard">
 
-    <!-- Sidebar -->
+    <!-- ================= SIDEBAR ================= -->
+
     <aside class="sidebar">
 
-        <h2 class="logo">StevCode</h2>
+        <h2 class="logo">
+            StevCode
+        </h2>
 
-        <nav>
+        <!-- Student Summary -->
 
-            <a href="#" class="active">📊 Dashboard</a>
+        <div class="student-summary">
 
-            <a href="#">👤 Profile</a>
+            <h3 id="student-name">
+                Student Name
+            </h3>
 
-            <a href="#">📚 Courses</a>
+            <p id="student-department">
+                Department
+            </p>
 
-            <a href="#">📝 Results</a>
+            <p id="student-level">
+                Level
+            </p>
 
-            <a href="#">💳 Fees</a>
+        </div>
 
-            <a href="#">📅 Timetable</a>
+        <!-- Navigation -->
 
-            <a href="#">📢 Announcements</a>
+        <nav class="nav">
 
-            <button id="logout-btn">
-                🚪 Logout
-            </button>
+            <a href="#" class="nav-link active" data-page="dashboard">
+                📊 Dashboard
+            </a>
+
+            <a href="#" class="nav-link" data-page="profile">
+                👤 Profile
+            </a>
+
+            <a href="#" class="nav-link" data-page="courses">
+                📚 Courses
+            </a>
+
+            <a href="#" class="nav-link" data-page="attendance">
+                ✅ Attendance
+            </a>
+
+            <a href="#" class="nav-link" data-page="results">
+                📝 Results
+            </a>
+
+            <a href="#" class="nav-link" data-page="fees">
+                💳 Fees
+            </a>
+
+            <a href="#" class="nav-link" data-page="timetable">
+                📅 Timetable
+            </a>
+
+            <a href="#" class="nav-link" data-page="announcements">
+                📢 Announcements
+            </a>
 
         </nav>
 
+        <button
+                id="logout-btn"
+                class="logout">
+
+            🚪 Logout
+
+        </button>
+
     </aside>
 
-    <!-- Main Content -->
-    <main class="main-content">
+    <!-- ================= MAIN CONTENT ================= -->
+
+    <main class="main">
+
+        <!-- Top Bar -->
 
         <header class="topbar">
 
-            <h2 id="welcome-message">
-                Welcome
-            </h2>
+            <div>
+
+                <h2 id="welcome-message">
+                    Welcome
+                </h2>
+
+                <p id="current-date">
+                    Monday, 21 June 2026
+                </p>
+
+            </div>
 
         </header>
 
-        <!-- Student Card -->
+        <!-- ================================================= -->
+        <!-- DASHBOARD PAGE -->
+        <!-- ================================================= -->
 
-        <section class="student-card">
 
-            <h3>Student Information</h3>
+        <div class="pages">
+            <section id="dashboard-page" class="page">
 
-            <p><strong>Student ID:</strong> <span id="student-id"></span></p>
+                <!-- Student Information -->
 
-            <p><strong>Department:</strong> <span id="department"></span></p>
+                <section class="student-card">
 
-            <p><strong>Level:</strong> <span id="level"></span></p>
+                    <h3>
+                        Student Information
+                    </h3>
 
-            <p><strong>CGPA:</strong> <span id="cgpa"></span></p>
+                    <p><strong>MatricNo:</strong> <span id="matricNo-display"></span></p>
 
-            <p><strong>Fees:</strong> <span id="fees"></span></p>
-            <p><strong>Semester:</strong> <span id="semester"></span></p>
+                    <p><strong>Department:</strong> <span id="department-display"></span></p>
 
-        </section>
+                    <p><strong>Level:</strong> <span id="level-display"></span></p>
 
-        <!-- Stats -->
+                    <p><strong>Semester:</strong> <span id="semester-display"></span></p>
 
-        <section class="stats">
 
-            <div class="card">
-                <h3>📚 Courses</h3>
-                <p>6</p>
-            </div>
+                </section>
 
-            <div class="card">
-                <h3>📝 Results</h3>
-                <p>View</p>
-            </div>
+                <!-- Academic Information -->
 
-            <div class="card">
-                <h3>💳 Fees</h3>
-                <p id="fees-card"></p>
-            </div>
+                <section class="student-card">
 
-            <div class="card">
-                <h3>🎓 CGPA</h3>
-                <p id="cgpa-card"></p>
-            </div>
+                    <h3>
+                        Academic Information
+                    </h3>
 
-        </section>
+                    <p><strong>CGPA:</strong> <span id="cgpa-display"></span></p>
 
+                    <p><strong>Fees:</strong> <span id="fees-display"></span></p>
+
+                </section>
+
+                <!-- Dashboard Cards -->
+
+                <div class="card">
+                    <h3>Courses</h3>
+                    <p id="courses-card"></p>
+                </div>
+
+                <div class="card">
+                    <h3>Attendance</h3>
+                    <p id="attendance-card"></p>
+                </div>
+
+                <div class="card">
+                    <h3>Results</h3>
+                    <p id="results-card"></p>
+                </div>
+
+                <div class="card">
+                    <h3>Announcements</h3>
+                    <p id="announcements-card"></p>
+                </div>
+
+                <div class="card">
+                    <h3>Fees</h3>
+                    <p id="fees-card"></p>
+                </div>
+
+                <div class="card">
+                    <h3>CGPA</h3>
+                    <p id="cgpa-card"></p>
+                </div>
+
+                <section class="student-card">
+
+                    <h3>Academic Summary</h3>
+
+                    <p>
+                        ✓ Passed Courses:
+                        <span id="dashboard-passed-courses"></span>
+                    </p>
+
+                    <p>
+                        ✗ Failed Courses:
+                        <span id="dashboard-failed-courses"></span>
+                    </p>
+
+                    <p>
+                        📈 Average Score:
+                        <span id="dashboard-average-score"></span>
+                    </p>
+
+                    <p>
+                        🎯 Attendance Rate:
+                        <span id="dashboard-attendance-rate"></span>
+                    </p>
+
+                </section>
+            </section>
+
+            <!-- ================================================= -->
+            <!-- OTHER PAGES -->
+            <!-- ================================================= -->
+
+            <section id="profile-page"
+                     class="page"
+                     hidden>
+
+                <h2>Student Profile</h2>
+
+                <div class="profile-card">
+
+                    <p>
+                        <strong>Full Name:</strong>
+                        <span id="profile-name"></span>
+                    </p>
+
+                    <p>
+                        <strong>Matric Number:</strong>
+                        <span id="profile-matric"></span>
+                    </p>
+
+                    <p>
+                        <strong>Email:</strong>
+                        <span id="profile-email"></span>
+                    </p>
+
+                    <p>
+                        <strong>Phone:</strong>
+                        <span id="profile-phone"></span>
+                    </p>
+
+                    <p>
+                        <strong>Faculty:</strong>
+                        <span id="profile-faculty"></span>
+                    </p>
+
+                    <p>
+                        <strong>Department:</strong>
+                        <span id="profile-department"></span>
+                    </p>
+
+                    <p>
+                        <strong>Level:</strong>
+                        <span id="profile-level"></span>
+                    </p>
+
+                    <p>
+                        <strong>Semester:</strong>
+                        <span id="profile-semester"></span>
+                    </p>
+
+                </div>
+
+            </section>
+
+            <section id="courses-page"
+                     class="page"
+                     hidden>
+
+                <h2>Registered Courses</h2>
+
+
+                <table class="data-table">
+
+                    <thead>
+
+                    <tr>
+                        <th>Course Code</th>
+                        <th>Course Title</th>
+                        <th>Units</th>
+                        <th>Lecturer</th>
+                    </tr>
+
+                    </thead>
+
+                    <tbody id="courses-table-body">
+
+                    </tbody>
+
+                </table>
+
+            </section>
+
+            <section id="attendance-page"
+                     class="page"
+                     hidden>
+
+                <h2>Attendance</h2>
+
+
+                <div class="attendance-summary">
+
+                    <p>
+                        <strong>Total Classes:</strong>
+                        <span id="attendance-total"></span>
+                    </p>
+
+                    <p>
+                        <strong>Attended:</strong>
+                        <span id="attendance-attended"></span>
+                    </p>
+
+                    <p>
+                        <strong>Missed:</strong>
+                        <span id="attendance-missed"></span>
+                    </p>
+
+                    <p>
+                        <strong>Attendance Rate:</strong>
+                        <span id="attendance-rate"></span>
+                    </p>
+
+                </div>
+
+                <h3>Attendance Records</h3>
+
+                <table class="data-table">
+
+                    <thead>
+
+                    <tr>
+                        <th>Date</th>
+                        <th>Course</th>
+                        <th>Status</th>
+                    </tr>
+
+                    </thead>
+
+                    <tbody id="attendance-table-body">
+
+                    </tbody>
+
+                </table>
+
+            </section>
+            <section id="results-page"
+                     class="page"
+                     hidden>
+
+                <h2>Results</h2>
+
+                <div>
+
+                    <p>
+                        <strong>Total Courses:</strong>
+                        <span id="result-total-courses"></span>
+                    </p>
+
+                    <p>
+                        <strong>Average Score:</strong>
+                        <span id="result-average-score"></span>
+                    </p>
+                    <p>
+                        <strong>Passed Courses:</strong>
+                        <span id="result-passed-courses"></span>
+                    </p>
+
+                    <p>
+                        <strong>Failed Courses:</strong>
+                        <span id="result-failed-courses"></span>
+                    </p>
+
+                </div>
+
+                <table class="data-table">
+                    <thead>
+                    <tr>
+                        <th>Course</th>
+                        <th>Score</th>
+                        <th>Grade</th>
+                    </tr>
+                    </thead>
+
+                    <tbody id="results-table-body">
+
+                    </tbody>
+
+                </table>
+
+            </section>
+
+            <section id="fees-page"
+                     class="page"
+                     hidden>
+
+                <h2>School Fees</h2>
+
+                <p>
+                    <strong>Total Amount:</strong>
+                    ₦<span id="fees-total" class="fee-amount"></span>
+                </p>
+
+                <p>
+                    <strong>Paid Amount:</strong>
+                    ₦<span id="fees-paid" class="fee-amount"> </span>
+                </p>
+
+                <p>
+                    <strong>Outstanding:</strong>
+                    ₦<span id="fees-outstanding" class="fee-amount"></span>
+                </p>
+
+                <p>
+                    <strong>Status:</strong>
+                    <span id="fees-status" class="fee-amount"></span>
+                </p>
+
+            </section>
+
+            <section id="timetable-page"
+                     class="page"
+                     hidden>
+
+                <h2>Class Timetable</h2>
+
+                <table class="data-table">
+
+                    <thead>
+                    <tr>
+                        <th>Day</th>
+                        <th>Course</th>
+                        <th>Time</th>
+                        <th>Venue</th>
+                    </tr>
+                    </thead>
+
+                    <tbody id="timetable-body">
+
+                    </tbody>
+
+                </table>
+
+            </section>
+
+            <section id="announcements-page"
+                     class="page"
+                     hidden>
+
+                <h2>Announcements</h2>
+
+
+                <div id="announcements-container">
+
+                </div>
+            </section>
+        </div>
     </main>
 
 </div>
+
 <script src="js/students.js"></script>
 <script src="js/auth.js"></script>
 <script src="js/dashboard.js"></script>

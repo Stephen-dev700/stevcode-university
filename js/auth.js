@@ -1,37 +1,42 @@
 
 
+const AUTH_KEY = "loggedInStudent";
+const LOGIN_PAGE = "index.html";
+const DASHBOARD_PAGE = "dashboard.html";
+
 function authenticate(studentId, password) {
     return students.find(student =>
-        student.studentId === studentId &&
+        student.matricNo === studentId &&
         student.password === password
     ) || null;
 }
 
-function getCurrentStudent() {
-    return JSON.parse(localStorage.getItem("loggedInStudent"));
+function saveStudent(student) {
+    localStorage.setItem(
+        AUTH_KEY,
+        JSON.stringify(student)
+    );
+    console.log("Student saved:", student);
 }
 
-function isStudentLoggedIn() {
-    const student = getCurrentStudent();
+function getCurrentStudent() {
+    const data = localStorage.getItem(AUTH_KEY);
 
-    if (!student) {
-        return false;
+    if (!data || data === "undefined") return null;
+
+    try {
+        return JSON.parse(data);
+    } catch (e) {
+        localStorage.removeItem(AUTH_KEY);
+        return null;
     }
+}
 
-    const validStudent = authenticate(
-        student.studentId,
-        student.password
-    );
-
-    if (!validStudent) {
-        logout();
-        return false;
-    }
-
-    return true;
+function isLoggedIn() {
+    return getCurrentStudent() !== null;
 }
 
 function logout() {
-    localStorage.removeItem("loggedInStudent");
+    localStorage.removeItem(AUTH_KEY);
     window.location.href = "index.html";
 }

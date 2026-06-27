@@ -1,5 +1,5 @@
 const form = document.getElementById("login-form");
-const studentId = document.getElementById("student-id");
+const matricNo = document.getElementById("matric-No-id");
 const passwordInput = document.getElementById("password");
 const togglePassword = document.getElementById("toggle-password");
 const loginError = document.getElementById("login-error");
@@ -20,20 +20,19 @@ togglePassword.addEventListener("click", () => {
 
 // Form validation
 form.addEventListener("submit", (e) => {
-    e.preventDefault(); // STOP PAGE RELOAD
+    e.preventDefault();
+
     let isValid = true;
 
-    // Clear previous errors
     studentError.textContent = "";
     passwordError.textContent = "";
+    loginError.textContent = "";
 
-    // Student ID check
-    if (studentId.value.trim() === "") {
-        studentError.textContent = "Student ID is required";
+    if (matricNo.value.trim() === "") {
+        studentError.textContent = "Matric No is required";
         isValid = false;
     }
 
-    // Password check
     if (passwordInput.value.trim() === "") {
         passwordError.textContent = "Password is required";
         isValid = false;
@@ -41,31 +40,29 @@ form.addEventListener("submit", (e) => {
 
     if (!isValid) return;
 
-       // START LOADING STATE
-       loginBtn.classList.add("loading");
-       loginBtn.textContent = "Logging in...";
-       loginBtn.disabled = true;
+    loginBtn.classList.add("loading");
+    loginBtn.textContent = "Logging in...";
+    loginBtn.disabled = true;
 
-       // FAKE SERVER DELAY
-      setTimeout(() => {
+    setTimeout(() => {
 
-          loginBtn.classList.remove("loading");
-          loginBtn.textContent = "Login";
-          loginBtn.disabled = false;
+        loginBtn.classList.remove("loading");
+        loginBtn.textContent = "Login";
+        loginBtn.disabled = false;
 
-          const students = authenticate(
-              studentId.value.trim(),
-              passwordInput.value
-          );
+        const student = authenticate(
+            matricNo.value.trim(),
+            passwordInput.value
+        );
 
-          if (!students) {
-              loginError.textContent = "Invalid Student ID or Password.";
-              return;
-          }
+        if (!student) {
+            loginError.textContent = "Invalid Student ID or Password.";
+            return;
+        }
 
-          saveStudent(students);
+        saveStudent(student);
 
-          window.location.href = "dashboard.html";
+       window.location.href = DASHBOARD_PAGE;
 
-      }, 2000);
-      });
+    }, 2000);
+});
