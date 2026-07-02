@@ -25,18 +25,16 @@
         <!-- Student Summary -->
 
         <div class="student-summary">
+            <div class="student-avatar">
+            <img id="student-avatar"
+            src=""
+            alt="Student">
+            </div>
+            <h3 id="student-name"></h3>
 
-            <h3 id="student-name">
-                Student Name
-            </h3>
+            <p id="student-department"></p>
 
-            <p id="student-department">
-                Department
-            </p>
-
-            <p id="student-level">
-                Level
-            </p>
+            <p id="student-level"></p>
 
         </div>
 
@@ -120,7 +118,7 @@
 
                 <!-- Student Information -->
 
-                <section class="student-card">
+                <section class="info-card">
 
                     <h3>
                         Student Information
@@ -139,7 +137,7 @@
 
                 <!-- Academic Information -->
 
-                <section class="student-card">
+                <section class="info-card">
 
                     <h3>
                         Academic Information
@@ -153,37 +151,51 @@
 
                 <!-- Dashboard Cards -->
 
-                <div class="card">
-                    <h3>Courses</h3>
-                    <p id="courses-card"></p>
+                <div class="quick-overview">
+
+                    <div class="overview-box courses">
+
+                        <span>📚</span>
+
+                        <h3>Courses</h3>
+
+                        <p id="courses-card"></p>
+
+                    </div>
+
+                    <div class="overview-box cgpa">
+
+                        <span>🎓</span>
+
+                        <h3>CGPA</h3>
+
+                        <p id="cgpa-card"></p>
+
+                    </div>
+
+                    <div class="overview-box fees">
+
+                        <span>💳</span>
+
+                        <h3>Fees</h3>
+
+                        <p id="fees-card"></p>
+
+                    </div>
+
+                    <div class="overview-box announcements">
+
+                        <span>📢</span>
+
+                        <h3>Announcements</h3>
+
+                        <p id="announcements-card"></p>
+
+                    </div>
+
                 </div>
 
-                <div class="card">
-                    <h3>Attendance</h3>
-                    <p id="attendance-card"></p>
-                </div>
-
-                <div class="card">
-                    <h3>Results</h3>
-                    <p id="results-card"></p>
-                </div>
-
-                <div class="card">
-                    <h3>Announcements</h3>
-                    <p id="announcements-card"></p>
-                </div>
-
-                <div class="card">
-                    <h3>Fees</h3>
-                    <p id="fees-card"></p>
-                </div>
-
-                <div class="card">
-                    <h3>CGPA</h3>
-                    <p id="cgpa-card"></p>
-                </div>
-
-                <section class="student-card">
+                <section class="info-card">
 
                     <h3>Academic Summary</h3>
 
@@ -218,50 +230,57 @@
                      class="page"
                      hidden>
 
-                <h2>Student Profile</h2>
+                <div class="page-header">
 
-                <div class="profile-card">
+                    <h2>Student Profile</h2>
 
-                    <p>
-                        <strong>Full Name:</strong>
+                    <p>View your personal and academic information.</p>
+
+                </div>
+
+                <div class="profile-grid">
+
+                    <div class="info-card">
+
+                        <h3>Personal Information</h3>
+                        <div class="info-item">
+                        <p><strong>Full Name</strong></p>
                         <span id="profile-name"></span>
-                    </p>
-
-                    <p>
-                        <strong>Matric Number:</strong>
-                        <span id="profile-matric"></span>
-                    </p>
-
-                    <p>
-                        <strong>Email:</strong>
+                        </div>
+                        <div class="info-item">
+                        <p><strong>Email</strong></p>
                         <span id="profile-email"></span>
-                    </p>
-
-                    <p>
-                        <strong>Phone:</strong>
+                        </div>
+                        <div class="info-item">
+                        <p><strong>Phone</strong></p>
                         <span id="profile-phone"></span>
-                    </p>
+                        </div>
+                        <div class="info-item">
+                        <p><strong>Matric Number</strong></p>
+                        <span id="profile-matric"></span>
+                        </div>
+                    </div>
 
-                    <p>
-                        <strong>Faculty:</strong>
+                    <div class="info-card">
+
+                        <h3>Academic Information</h3>
+                        <div class="info-item">
+                        <p><strong>Faculty</strong></p>
                         <span id="profile-faculty"></span>
-                    </p>
-
-                    <p>
-                        <strong>Department:</strong>
+                        </div>
+                        <div class="info-item">
+                        <p><strong>Department</strong></p>
                         <span id="profile-department"></span>
-                    </p>
-
-                    <p>
-                        <strong>Level:</strong>
+                        </div>
+                        <div class="info-item">
+                        <p><strong>Level</strong></p>
                         <span id="profile-level"></span>
-                    </p>
-
-                    <p>
-                        <strong>Semester:</strong>
+                    </div>
+                    <div class="info-item">
+                        <p><strong>Semester</strong></p>
                         <span id="profile-semester"></span>
-                    </p>
-
+                    </div>
+                    </div>
                 </div>
 
             </section>
@@ -392,32 +411,122 @@
 
             </section>
 
+            <!-- =====================================
+                  FEES PAGE
+  ====================================== -->
+
             <section id="fees-page"
                      class="page"
                      hidden>
 
-                <h2>School Fees</h2>
+                <!-- Page Header -->
 
-                <p>
-                    <strong>Total Amount:</strong>
-                    ₦<span id="fees-total" class="fee-amount"></span>
-                </p>
+                <div class="page-header">
 
-                <p>
-                    <strong>Paid Amount:</strong>
-                    ₦<span id="fees-paid" class="fee-amount"> </span>
-                </p>
+                    <h2>School Fees</h2>
 
-                <p>
-                    <strong>Outstanding:</strong>
-                    ₦<span id="fees-outstanding" class="fee-amount"></span>
-                </p>
+                    <p>Track your payment progress and fee status.</p>
 
-                <p>
-                    <strong>Status:</strong>
-                    <span id="fees-status" class="fee-amount"></span>
-                </p>
+                </div>
 
+
+                <!-- Fees Summary -->
+
+                <div class="quick-overview">
+
+                    <div class="overview-box total-fees">
+
+                        <span>💰</span>
+
+                        <h3>Total Fee</h3>
+
+                        <p id="fees-total"></p>
+
+                    </div>
+
+                    <div class="overview-box paid-fees">
+
+                        <span>✅</span>
+
+                        <h3>Paid</h3>
+
+                        <p id="fees-paid"></p>
+
+                    </div>
+
+                    <div class="overview-box outstanding-fees">
+
+                        <span>⚠️</span>
+
+                        <h3>Outstanding</h3>
+
+                        <p id="fees-outstanding"></p>
+
+                    </div>
+
+                    <div class="overview-box fees-status">
+
+                        <span>📋</span>
+
+                        <h3>Status</h3>
+
+                        <p id="fees-status"></p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Payment Progress -->
+
+                <div class="info-card">
+
+                    <h3>Payment Progress</h3>
+
+                    <div class="progress-track">
+
+                        <div id="progress-bar"
+                             class="progress-fill">
+
+                        </div>
+
+                    </div>
+
+                    <p id="progress-text"
+                       class="progress-text">
+
+                    </p>
+
+                </div>
+                <div class="info-card">
+
+                    <h3>Payment History</h3>
+
+                    <table class="data-table">
+
+                        <thead>
+
+                        <tr>
+
+                            <th>Date</th>
+
+                            <th>Amount</th>
+
+                            <th>Method</th>
+
+                            <th>Reference</th>
+
+                        </tr>
+
+                        </thead>
+
+                        <tbody id="payment-history">
+
+                        </tbody>
+
+                    </table>
+
+                </div>
             </section>
 
             <section id="timetable-page"
@@ -460,7 +569,40 @@
     </main>
 
 </div>
+<!-- Logout Confirmation Modal -->
+<div id="logout-modal" class="modal">
 
+    <div class="modal-content">
+
+        <h2>Confirm Logout</h2>
+
+        <p>
+            Are you sure you want to log out of your account?
+        </p>
+
+        <div class="modal-actions">
+
+            <button
+                    id="cancel-logout"
+                    class="btn-secondary">
+
+                Cancel
+
+            </button>
+
+            <button
+                    id="confirm-logout"
+                    class="btn-danger">
+
+                Logout
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
 <script src="js/students.js"></script>
 <script src="js/auth.js"></script>
 <script src="js/dashboard.js"></script>

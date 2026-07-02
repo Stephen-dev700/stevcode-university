@@ -2,7 +2,7 @@ const students = [
 {
      matricNo: "CSC/2024/001",
     password: "12345",
-
+    profileImage: "assets/images/students/stephen.jpg",
     firstName: "Stephen",
     lastName: "Ilesanmi",
     email: "stephen@gmail.com",
@@ -13,12 +13,30 @@ const students = [
     level: "300",
     semester: "First Semester",
     cgpa: 4.62,
-   fees: {
-       totalAmount: 150000,
-       paidAmount: 100000,
-       outstandingAmount: 50000,
-       status: "Partially Paid"
-   },
+  fees: {
+      totalAmount: 150000,
+      paidAmount: 100000,
+      outstandingAmount: 50000,
+      status: "Partially Paid",
+
+      history: [
+
+          {
+              date: "2026-01-15",
+              amount: 50000,
+              method: "Bank Transfer",
+              reference: "TRX102938"
+          },
+
+          {
+              date: "2026-03-10",
+              amount: 50000,
+              method: "Debit Card",
+              reference: "TRX847261"
+          }
+
+      ]
+  },
 
       attendance: {
                 totalClasses: 50,
@@ -127,26 +145,26 @@ timetable: [
     {
         day: "Monday",
         course: "CSC301",
-        time: "8:00 AM - 10:00 AM",
-        venue: "LT1"
+        time: "🕗8:00 AM - 10:00 AM",
+        venue: "🏫LT1"
     },
     {
         day: "Tuesday",
         course: "MTH305",
-        time: "10:00 AM - 12:00 PM",
-        venue: "LT2"
+        time: "🕗10:00 AM - 12:00 PM",
+        venue: "🏫LT2"
     },
     {
         day: "Wednesday",
         course: "GST302",
-        time: "1:00 PM - 3:00 PM",
-        venue: "Hall A"
+        time: "🕗1:00 PM - 3:00 PM",
+        venue: "🏫Hall A"
     },
     {
         day: "Thursday",
         course: "CSC307",
-        time: "9:00 AM - 11:00 AM",
-        venue: "Lab 3"
+        time: "🕗9:00 AM - 11:00 AM",
+        venue: "🏫Lab 3"
     }
 ],
 },
@@ -168,11 +186,29 @@ timetable: [
     cgpa: 4.52,
 
      fees: {
-           totalAmount: 150000,
-           paidAmount: 150000,
-           outstandingAmount: 0,
-           status: "Paid"
-       },
+         totalAmount: 150000,
+         paidAmount: 150000,
+         outstandingAmount: 0,
+         status: "Paid",
+
+         history: [
+
+             {
+                 date: "2026-01-08",
+                 amount: 75000,
+                 method: "Bank Transfer",
+                 reference: "TRX234111"
+             },
+
+             {
+                 date: "2026-02-05",
+                 amount: 75000,
+                 method: "USSD",
+                 reference: "TRX982731"
+             }
+
+         ]
+     },
 
     attendance: {
         totalClasses: 40,

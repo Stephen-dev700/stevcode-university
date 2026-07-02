@@ -20,11 +20,13 @@ function initializeDashboard() {
     }
 
     renderDashboard(student);
+    getGreeting();
     renderProfile(student);
     renderAttendance(student);
     renderCourses(student);
     renderResults(student);
     renderFees(student);
+    renderPaymentHistory(student)
     renderTimetable(student);
     renderAnnouncements(student);
     renderAcademicSummary(student);
@@ -41,9 +43,6 @@ function initializeDashboard() {
 // ===============================
 
 function renderDashboard(student) {
-
-    // Top Bar
-    const welcomeMessage = document.getElementById("welcome-message");
 
     // Sidebar
     const studentName = document.getElementById("student-name");
@@ -69,12 +68,13 @@ function renderDashboard(student) {
     const announcementsCard = document.getElementById("announcements-card");
 
 
+  document.getElementById("student-avatar").src =
+  student.profileImage;
 
-    // Top Bar
-   const fullName = `${student.firstName} ${student.lastName}`;
-
-   welcomeMessage.textContent = `Welcome, ${fullName}`;
-
+ const greeting = getGreeting();
+  const welcomeMessage = document.getElementById("welcome-message");
+      const fullName = `${student.firstName} ${student.lastName}`;
+     welcomeMessage.textContent = `${greeting}, ${student.firstName}!`;
 
 
     // Sidebar
@@ -103,21 +103,23 @@ function renderDashboard(student) {
     feesCard.textContent = student.fees.status;
     coursesCard.textContent = student.courses.length;
     announcementsCard.textContent = student.announcements.length;
-
-    const attendancePercentage =
-        (
-            student.attendance.attended /
-            student.attendance.totalClasses
-        ) * 100;
-        attendanceCard.textContent = `${attendancePercentage.toFixed(0)}%`;
-        const passedCourses =
-            student.results.filter(
-                result => result.score >= 40
-            ).length;
-            resultsCard.textContent = `${passedCourses} Passed`;
-
-
 }
+function getGreeting() {
+
+    const hour = new Date().getHours();
+
+    if (hour < 12) {
+        return "☀️ Good Morning";
+    }
+
+    if (hour < 18) {
+        return "🌤️ Good Afternoon";
+    }
+
+    return "🌙 Good Evening";
+}
+
+
 function renderAcademicSummary(student) {
 const passedCourses = document.getElementById("dashboard-passed-courses");
 const failedCourses = document.getElementById("dashboard-failed-courses");
@@ -302,23 +304,67 @@ function renderResults(student) {
     function renderFees(student) {
 
         const fees = student.fees;
+        const percentage = (fees.paidAmount / fees.totalAmount) * 100;
 
         document.getElementById("fees-total")
             .textContent = `${fees.totalAmount.toLocaleString()}`
 
         document.getElementById("fees-paid")
-            .textContent = `${fees.totalAmount.toLocaleString()}`
+            .textContent = `${fees.paidAmount.toLocaleString()}`
 
         document.getElementById("fees-outstanding")
-            .textContent =`${fees.totalAmount.toLocaleString()}`
+            .textContent =`${fees.outstandingAmount.toLocaleString()}`
 
        document.getElementById("fees-status").innerHTML = `
-           <span class="status-${fees.status
+           <span class="status-${fees.status}
                .toLowerCase()
-               .replace(/\s+/g, "-")}">
+               .replace(/\s+/g, "-")">
                ${fees.status}
            </span>
        `;
+       document.getElementById("progress-bar").style.width =
+       `${percentage}%`;
+
+       document.getElementById("progress-text").textContent =
+       `${Math.round(percentage)}% Paid`;
+    }
+    function renderPaymentHistory(student){
+
+        const tbody = document.getElementById("payment-history");
+
+        tbody.innerHTML = "";
+
+        student.fees.history.forEach(payment => {
+
+            const formattedDate =
+                new Date(payment.date).toLocaleDateString(
+                    "en-GB",
+                    {
+                        day:"numeric",
+                        month:"short",
+                        year:"numeric"
+                    }
+                );
+               const shortReference =
+               `REF-${payment.reference.slice(-4)}`;
+            tbody.innerHTML += `
+
+                <tr>
+
+                    <td>${formattedDate}</td>
+
+                    <td>₦${payment.amount.toLocaleString()}</td>
+
+                    <td>${payment.method}</td>
+
+                   <td>${shortReference}</td>
+
+                </tr>
+
+            `;
+
+        });
+
     }
     function renderTimetable(student) {
 
@@ -332,9 +378,27 @@ function renderResults(student) {
             timetableBody.innerHTML += `
                 <tr>
                     <td>${entry.day}</td>
-                    <td>${entry.course}</td>
-                    <td>${entry.time}</td>
-                    <td>${entry.venue}</td>
+                   <td>
+                       <span class="course-code">
+                           ${entry.course}
+                       </span>
+                   </td>
+                   <td>
+                   <span class="time-badge">
+
+                   ${entry.time}
+
+                   </span>
+
+                   </td>
+                   <td>
+                   <span class="venue-badge">
+
+                   ${entry.venue}
+
+                   </span>
+
+                   </td>
                 </tr>
             `;
 
@@ -433,12 +497,41 @@ function setupNavigation() {
 
 
 function setupLogout() {
+const logoutButton = document.querySelector(".logout");
+const logoutModal = document.getElementById("logout-modal");
+const cancelLogout =document.getElementById("cancel-logout");
+const confirmLogout = document.getElementById("confirm-logout");
 
-    const logoutBtn = document.getElementById("logout-btn");
+logoutButton.addEventListener("click", () => {
 
-    logoutBtn.addEventListener("click", logout);
+    logoutModal.classList.add("show");
+
+});
+cancelLogout.addEventListener("click", () => {
+
+    logoutModal.classList.remove("show");
+
+});
+confirmLogout.addEventListener("click", () => {
+
+    localStorage.removeItem("loggedInStudent");
+
+    window.location.href = "index.html";
+
+});
+logoutModal.addEventListener("click", (event) => {
+
+    if (event.target === logoutModal) {
+
+        logoutModal.classList.remove("show");
+
+    }
+
+});
+
 
 }
+
 
 
 // ===============================
