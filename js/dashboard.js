@@ -210,7 +210,17 @@ function renderAttendance(student) {
         document.getElementById("attendance-table-body");
 
     tableBody.innerHTML = "";
+    if(student.attendance.records.length === 0){
 
+        showEmptyState(
+            tbody,
+            "📅 No attendance records found.",
+            3
+        );
+
+        return;
+
+    }
     attendance.records.forEach(record => {
 
         const row = document.createElement("tr");
@@ -236,6 +246,17 @@ function renderCourses(student) {
         document.getElementById("courses-table-body");
 
     tableBody.innerHTML = "";
+    if(student.courses.length === 0){
+
+        showEmptyState(
+            tbody,
+            "📚 No registered courses yet.",
+            4
+        );
+
+        return;
+
+    }
 
     student.courses.forEach(course => {
 
@@ -258,7 +279,17 @@ function renderResults(student) {
         document.getElementById("results-table-body");
 
     tableBody.innerHTML = "";
+    if(student.results.length === 0){
 
+        showEmptyState(
+            tbody,
+            "🎓 No results available.",
+            3
+        );
+
+        return;
+
+    }
     let totalScore = 0;
     let passedCourses = 0;
     let failedCourses = 0;
@@ -372,7 +403,17 @@ function renderResults(student) {
             document.getElementById("timetable-body");
 
         timetableBody.innerHTML = "";
+         if(student.timetable.length === 0){
 
+             showEmptyState(
+                 tbody,
+                 "🗓️ No timetable available.",
+                 4
+             );
+
+             return;
+
+         }
         student.timetable.forEach(entry => {
 
             timetableBody.innerHTML += `
@@ -410,7 +451,16 @@ function renderResults(student) {
         const container = document.getElementById("announcements-container");
 
         container.innerHTML = "";
+        if(student.announcements.length === 0){
 
+            showEmptyState(
+                container,
+                "Check back later for school announcements."
+            );
+
+            return;
+
+        }
         student.announcements.forEach(announcement => {
      const formattedDate =
                             new Date(announcement.date)
@@ -553,4 +603,33 @@ function displayCurrentDate() {
 
     currentDate.textContent =
         today.toLocaleDateString("en-US", options);
+}
+function showEmptyState(container, message, colspan = null) {
+
+    if (colspan) {
+
+        container.innerHTML = `
+            <tr>
+                <td colspan="${colspan}" class="empty-state">
+                    ${message}
+                </td>
+            </tr>
+        `;
+
+    } else {
+
+        container.innerHTML = `
+            <div class="empty-card">
+
+                <div class="empty-icon">📭</div>
+
+                <h3>Nothing Here Yet</h3>
+
+                <p>${message}</p>
+
+            </div>
+        `;
+
+    }
+
 }
