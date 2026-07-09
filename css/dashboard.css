@@ -27,9 +27,9 @@ p{
 .card,
 .data-table,
 .topbar{
-    background:white;
-    border-radius:12px;
-    box-shadow:var(--shadow);
+    background:var(--card-background);
+   border-radius:var(--radius-md);
+   box-shadow:var(--shadow-md);
 }
 .page h2{
     margin-bottom:20px;
@@ -37,8 +37,9 @@ p{
     font-size:26px;
 }
 
-body {
-    background: #f4f6f9;
+body{
+    background:var(--background-color);
+    color:var(--text-primary);
 }
 
 /* LAYOUT */
@@ -50,7 +51,7 @@ body {
 
 /* SIDEBAR */
 .sidebar {
-    background: var(--primary-color);
+    background:var(--sidebar-background);
     color: white;
     padding: 25px;
     display: flex;
@@ -113,7 +114,7 @@ text-align:center;
     color: white;
     text-decoration: none;
     padding: 12px 14px;
-    border-radius: 10px;
+   border-radius:var(--radius-md);
     transition: all 0.25s ease;
 }
 
@@ -122,7 +123,7 @@ text-align:center;
 }
 
 .nav-link.active {
-    background: white;
+   background:var(--card-background);
     color: var(--primary-color);
     font-weight: 600;
 }
@@ -134,14 +135,13 @@ text-align:center;
         justify-content:space-between;
         align-items:center;
     }
-}
 
 #welcome-message {
-    color: var(--text-dark);
+    color: var(--text-primary);
 }
 
 #current-date {
-    color: var(--text-light);
+    color: var(--text-secondary);
     margin-top: 5px;
 }
 
@@ -153,7 +153,7 @@ text-align:center;
     border-radius: 10px;
     cursor: pointer;
     font-weght: 600;
-    background: white;
+   background:var(--card-background);
     color: var(--primary-color);
     transition: 0.25s ease;
 }
@@ -173,7 +173,7 @@ text-align:center;
 
 .info-card{
 
-    background:#fff;
+   background:var(--card-background);
 
     border-radius:18px;
 
@@ -181,7 +181,7 @@ text-align:center;
 
     box-shadow:0 8px 25px rgba(0,0,0,.08);
 
-    border:1px solid #eef2f7;
+    border:1px solid var(--border-color);
 
     transition:all .3s ease;
 
@@ -210,7 +210,7 @@ text-align:center;
 
     transform:translateY(-6px);
 
-    box-shadow:0 15px 35px rgba(0,0,0,.12);
+   box-shadow:var(--shadow-lg);
 
 }
 .info-card h3{
@@ -228,7 +228,7 @@ text-align:center;
 
     font-size:13px;
 
-    color:var(--text-light);
+    color:var(--text-secondary);
 
     text-transform:uppercase;
 
@@ -249,7 +249,7 @@ text-align:center;
 
     font-weight:600;
 
-    color:var(--text-dark);
+    color:var(--text-primary);
 
 }
 .info-item{
@@ -271,7 +271,7 @@ text-align:center;
 }
 .overview-box{
 
-    background:#fff;
+    background:var(--card-background);
 
     border-radius:18px;
 
@@ -279,7 +279,7 @@ text-align:center;
 
     box-shadow:0 8px 25px rgba(0,0,0,.08);
 
-    border:1px solid #eef2f7;
+   border:1px solid var(--border-color);
 
     position:relative;
 
@@ -311,7 +311,7 @@ text-align:center;
 
     transform:translateY(-6px);
 
-    box-shadow:0 15px 35px rgba(0,0,0,.12);
+   box-shadow:var(--shadow-lg);
 
 }
 .overview-box span{
@@ -325,7 +325,7 @@ text-align:center;
 }
 .overview-box h3{
 
-    color:var(--text-light);
+    color:var(--text-secondary);
 
     font-size:15px;
 
@@ -336,7 +336,7 @@ text-align:center;
 }
 .overview-box p{
 
-    color:var(--text-dark);
+    color:var(--text-primary);
 
     font-size:30px;
 
@@ -359,6 +359,45 @@ text-align:center;
     background:#7c3aed;
 }
 
+.table-controls{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    gap:15px;
+
+    margin-bottom:20px;
+
+    flex-wrap:wrap;
+
+}
+.table-controls input,
+.table-controls select{
+
+    flex:1;
+
+    padding:12px 16px;
+
+   border:1px solid var(--border-color);
+
+    border-radius:10px;
+
+    font-size:15px;
+
+    outline:none;
+
+    transition:.25s;
+
+}
+.table-controls input:focus,
+.table-controls select:focus{
+
+    border-color:var(--primary-color);
+
+   box-shadow:var(--shadow-lg);
+
+}
 
 .data-table {
     width: 100%;
@@ -375,7 +414,7 @@ text-align:center;
 
 .data-table td {
     padding: 14px;
-    border-bottom: 1px solid #eee;
+   border-bottom:1px solid var(--border-color);
 }
 
 .data-table tr:hover {
@@ -517,23 +556,31 @@ text-align:center;
 
     overflow:hidden;
 
+    margin:15px 0;
+
 }
 .progress-fill{
 
-    height:100%;
-
     width:0;
 
-    background:#22c55e;
+    height:100%;
 
-    transition:width .5s ease;
+    background:var(--primary-color);
+
+    border-radius:999px;
+
+    transition:width .8s ease;
 
 }
 .progress-text{
 
-    margin-top:12px;
+    text-align:right;
+
+    color:var(--text-secondary);
 
     font-weight:600;
+
+    font-size:14px;
 
 }
 .overview-box.total-fees::before {
@@ -551,6 +598,18 @@ text-align:center;
 .overview-box.fees-status::before {
     background: #7c3aed;
 }
+.total-fees p{
+color: #2563eb;
+}
+.paid-fees p{
+color:  #22c55e;
+}
+.outstanding-fees p{
+color: #f59e0b;
+}
+.fees-status p{
+color: #7c3aed;
+}
 
 #announcements-container{
 
@@ -564,15 +623,15 @@ text-align:center;
 }
 .announcement-card{
 
-    background:white;
+   background:var(--card-background);
 
     border-left:6px solid var(--primary-color);
 
     padding:20px;
 
-    border-radius:12px;
+   border-radius:12px;
 
-    box-shadow:var(--shadow);
+   box-shadow:var(--shadow-md);
 
     transition:.25s;
 
@@ -617,7 +676,7 @@ text-align:center;
 }
 .announcement-message {
 
-    color: var(--text-light);
+    color: var(--text-secondary);
 
     font-size: 15px;
 
@@ -634,7 +693,7 @@ text-align:center;
     margin-bottom:8px;
 }
 .page-header p{
-    color:var(--text-light);
+    color:var(--text-secondary);
 }
 .profile-grid{
     display:grid;
@@ -673,7 +732,7 @@ text-align:center;
 }
 .modal-content{
 
-    background:#fff;
+    background:var(--card-background);
 
     width:420px;
 
@@ -685,7 +744,7 @@ text-align:center;
 
     text-align:center;
 
-    box-shadow:0 20px 40px rgba(0,0,0,.15);
+   box-shadow:var(--shadow-lg);
 
     transform:translateY(-20px);
 
@@ -701,12 +760,12 @@ text-align:center;
 
     margin-bottom:15px;
 
-    color:var(--text-dark);
+    color:var(--text-primary);
 
 }
 .modal-content p{
 
-    color:var(--text-light);
+    color:var(--text-secondary);
 
     margin-bottom:25px;
 
@@ -768,6 +827,160 @@ text-align:center;
     transform:translateY(-2px);
 
     opacity:.9;
+
+}
+.total-courses::before{
+
+    background:#3b82f6;
+
+}
+.average-score::before{
+
+    background:#8b5cf6;
+
+}
+.passed-courses::before{
+
+    background:#22c55e;
+
+}
+.failed-courses::before{
+
+    background:#ef4444;
+
+}
+.total-courses p{
+
+    color:#3b82f6;
+
+}
+
+.average-score p{
+
+    color:#8b5cf6;
+
+}
+
+.passed-courses p{
+
+    color:#22c55e;
+
+}
+
+.failed-courses p{
+
+    color:#ef4444;
+
+}
+
+.total-classes::before {
+    background: #3b82f6;
+}
+
+.attended-classes::before {
+    background: #22c55e;
+}
+
+.missed-classes::before {
+    background: #ef4444;
+}
+
+.attendance-rate::before {
+    background: #8b5cf6;
+}
+.total-classes p{
+color:#3b82f6;
+}
+.attended-classes p{
+ color:#22c55e;
+}
+.missed-classes p{
+color:  #ef4444;
+}
+.attendance-rate p{
+color:  #8b5cf6;
+}
+
+
+.total-courses::before{
+    background:#3b82f6;
+}
+
+.total-units::before{
+    background:#22c55e;
+}
+
+.total-lecturers::before{
+    background:#f59e0b;
+}
+
+.semester::before{
+    background:#8b5cf6;
+}
+.total-courses p{
+    color:#3b82f6;
+}
+
+.total-units p{
+    color:#22c55e;
+}
+
+.total-lecturers p{
+    color:#f59e0b;
+}
+
+.semester p{
+    color:#8b5cf6;
+}
+
+.theme-toggle{
+
+    width:48px;
+
+    height:48px;
+
+    border:none;
+
+    border-radius:50%;
+
+    background:var(--card-background);
+
+    color:var(--text-primary);
+
+    box-shadow:var(--shadow-sm);
+
+    cursor:pointer;
+
+    font-size:20px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    transition:all .3s ease;
+
+}
+.theme-toggle:hover{
+
+    transform:translateY(-3px);
+
+    box-shadow:var(--shadow-md);
+
+}
+.theme-toggle:active{
+
+    transform:scale(.95);
+
+}
+.theme-toggle{
+
+    transition:
+        transform .4s ease,
+        background .3s ease,
+        color .3s ease,
+        box-shadow .3s ease;
 
 }
 

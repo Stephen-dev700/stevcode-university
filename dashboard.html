@@ -105,6 +105,9 @@
                 </p>
 
             </div>
+            <button id="theme-toggle" class="theme-toggle">
+                🌙
+            </button>
 
         </header>
 
@@ -282,14 +285,64 @@
                     </div>
                     </div>
                 </div>
-
             </section>
-
             <section id="courses-page"
                      class="page"
                      hidden>
 
                 <h2>Registered Courses</h2>
+            <div class="quick-overview">
+
+                <div class="overview-box total-courses">
+
+                    <span>📚</span>
+
+                    <h3>Total Courses</h3>
+
+                    <p id="course-total-courses">0</p>
+
+                </div>
+
+                <div class="overview-box total-units">
+
+                    <span>🎓</span>
+
+                    <h3>Total Units</h3>
+
+                    <p id="course-total-units">0</p>
+
+                </div>
+
+                <div class="overview-box total-lecturers">
+
+                    <span>👨‍🏫</span>
+
+                    <h3>Lecturers</h3>
+
+                    <p id="course-total-lecturers">0</p>
+
+                </div>
+
+                <div class="overview-box semester">
+
+                    <span>📖</span>
+
+                    <h3>Semester</h3>
+
+                    <p>First</p>
+
+                </div>
+
+            </div>
+            <div class="table-controls">
+
+                <input
+                        type="text"
+                        id="courses-search"
+                        placeholder="Search by course code or title...">
+
+            </div>
+
 
 
                 <table class="data-table">
@@ -318,32 +371,68 @@
                      hidden>
 
                 <h2>Attendance</h2>
+                <div class="quick-overview">
 
+                    <div class="overview-box total-classes">
 
-                <div class="attendance-summary">
+                        <span>📅</span>
 
-                    <p>
-                        <strong>Total Classes:</strong>
-                        <span id="attendance-total"></span>
-                    </p>
+                        <h3>Total Classes</h3>
 
-                    <p>
-                        <strong>Attended:</strong>
-                        <span id="attendance-attended"></span>
-                    </p>
+                        <p id="attendance-total-classes">0</p>
 
-                    <p>
-                        <strong>Missed:</strong>
-                        <span id="attendance-missed"></span>
-                    </p>
+                    </div>
 
-                    <p>
-                        <strong>Attendance Rate:</strong>
-                        <span id="attendance-rate"></span>
+                    <div class="overview-box attended-classes">
+
+                        <span>✅</span>
+
+                        <h3>Attended</h3>
+
+                        <p id="attendance-attended">0</p>
+
+                    </div>
+
+                    <div class="overview-box missed-classes">
+
+                        <span>❌</span>
+
+                        <h3>Missed</h3>
+
+                        <p id="attendance-missed">0</p>
+
+                    </div>
+
+                    <div class="overview-box attendance-rate">
+
+                        <span>📊</span>
+
+                        <h3>Attendance Rate</h3>
+
+                        <p id="attendance-rate">0%</p>
+
+                    </div>
+
+                </div>
+                <div class="info-card">
+
+                    <h3>Attendance Progress</h3>
+
+                    <div class="progress-track">
+
+                        <div id="attendance-progress-bar"
+                             class="progress-fill">
+
+                        </div>
+
+                    </div>
+
+                    <p id="attendance-progress-text"
+                       class="progress-text">
+
                     </p>
 
                 </div>
-
                 <h3>Attendance Records</h3>
 
                 <table class="data-table">
@@ -371,29 +460,68 @@
 
                 <h2>Results</h2>
 
-                <div>
+                <div class="quick-overview">
 
-                    <p>
-                        <strong>Total Courses:</strong>
-                        <span id="result-total-courses"></span>
-                    </p>
+                    <div class="overview-box total-courses">
 
-                    <p>
-                        <strong>Average Score:</strong>
-                        <span id="result-average-score"></span>
-                    </p>
-                    <p>
-                        <strong>Passed Courses:</strong>
-                        <span id="result-passed-courses"></span>
-                    </p>
+                        <span>📚</span>
 
-                    <p>
-                        <strong>Failed Courses:</strong>
-                        <span id="result-failed-courses"></span>
-                    </p>
+                        <h3>Total Courses</h3>
+
+                        <p id="result-total-courses">0</p>
+
+                    </div>
+
+                    <div class="overview-box average-score">
+
+                        <span>📊</span>
+
+                        <h3>Average Score</h3>
+
+                        <p id="result-average-score">0</p>
+
+                    </div>
+
+                    <div class="overview-box passed-courses">
+
+                        <span>✅</span>
+
+                        <h3>Passed Courses</h3>
+
+                        <p id="result-passed-courses">0</p>
+
+                    </div>
+
+                    <div class="overview-box failed-courses">
+
+                        <span>❌</span>
+
+                        <h3>Failed Courses</h3>
+
+                        <p id="result-failed-courses">0</p>
+
+                    </div>
 
                 </div>
+                <div class="table-controls">
 
+                    <input
+                            type="text"
+                            id="results-search"
+                            placeholder="Search course...">
+
+                    <select id="results-filter">
+
+                        <option value="all">All Grades</option>
+                        <option value="A">Grade A</option>
+                        <option value="B">Grade B</option>
+                        <option value="C">Grade C</option>
+                        <option value="D">Grade D</option>
+                        <option value="F">Grade F</option>
+
+                    </select>
+
+                </div>
                 <table class="data-table">
                     <thead>
                     <tr>

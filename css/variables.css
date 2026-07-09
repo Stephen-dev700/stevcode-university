@@ -6,23 +6,22 @@
 
     /* ========= COLORS ========= */
 
-    --primary-color: #2563EB;
-    --primary-dark: #1D4ED8;
-    --primary-light: #DBEAFE;
+     --primary-color: #2563eb;
+       --primary-dark: #1d4ed8;
 
-    --secondary-color: #3B82F6;
+       --success-color: #22c55e;
+       --warning-color: #f59e0b;
+       --danger-color: #ef4444;
 
-    --success-color: #22C55E;
-    --warning-color: #F59E0B;
-    --danger-color: #EF4444;
+       --background-color: #f5f7fb;
+       --card-background: #ffffff;
+      --sidebar-background: var(--primary-color);
+        --background-color: #f4f6f9;
 
-    --background-color: #F8FAFC;
-    --card-color: #FFFFFF;
+       --text-primary: #1f2937;
+       --text-secondary: #64748b;
 
-    --text-color: #0F172A;
-    --text-light: #64748B;
-
-    --border-color: #E2E8F0;
+       --border-color: #e5e7eb;
 
     /* ========= FONT ========= */
 
@@ -63,40 +62,46 @@
 
     /* ========= SHADOW ========= */
 
-    --shadow-sm:0 2px 8px rgba(0,0,0,.05);
-
-    --shadow-md:0 10px 30px rgba(0,0,0,.08);
-
-    --shadow-lg:0 20px 45px rgba(0,0,0,.12);
+    --shadow-sm: 0 2px 8px rgba(0,0,0,.05);
+       --shadow-md: 0 10px 30px rgba(0,0,0,.08);
+       --shadow-lg: 0 20px 45px rgba(0,0,0,.12);
 
     /* ========= TRANSITIONS ========= */
 
     --transition:.3s ease;
 
-        /* Primary */
-        --primary-color: #2563eb;
-        --primary-dark: #1d4ed8;
-
         /* Success */
-        --success-color: #16a34a;
         --success-light: #dcfce7;
 
         /* Warning */
-        --warning-color: #f59e0b;
         --warning-light: #fef3c7;
 
         /* Danger */
-        --danger-color: #dc2626;
         --danger-light: #fee2e2;
 
         /* Info */
         --info-color: #0ea5e9;
         --info-light: #e0f2fe;
 
-        /* Neutral */
-        --text-dark: #1f2937;
-        --text-light: #6b7280;
-        --card-bg: #ffffff;
-        --page-bg: #f4f6f9;
+
+
+
+}
+body.dark-mode {
+
+    --background-color: #0f172a;
+    --card-background: #1e293b;
+    --sidebar-background: #020617;
+
+    --text-primary: #f8fafc;
+    --text-secondary: #cbd5e1;
+
+    --border-color: #334155;
+
+    --shadow-sm: 0 2px 8px rgba(0,0,0,.25);
+
+       --shadow-md: 0 10px 30px rgba(0,0,0,.4);
+
+       --shadow-lg: 0 20px 45px rgba(0,0,0,.55);
 
 }

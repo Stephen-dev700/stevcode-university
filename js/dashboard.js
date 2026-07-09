@@ -3,8 +3,15 @@
 // ===============================
 
 document.addEventListener("DOMContentLoaded", initializeDashboard);
-
-
+let currentResults = [];
+let currentCourses = [];
+const pageAnimations = {
+    dashboard: false,
+    fees: false,
+    attendance: false,
+    results: false,
+    courses: false
+};
 // ===============================
 // MAIN INITIALIZER
 // ===============================
@@ -18,20 +25,16 @@ function initializeDashboard() {
         window.location.href = LOGIN_PAGE;
         return;
     }
-
     renderDashboard(student);
-    getGreeting();
-    renderProfile(student);
-    renderAttendance(student);
-    renderCourses(student);
-    renderResults(student);
-    renderFees(student);
-    renderPaymentHistory(student)
-    renderTimetable(student);
-    renderAnnouncements(student);
     renderAcademicSummary(student);
+    setupNavigation(student);
+    setupResultsControls();
+    setupCourseSearch();
+    setupTheme();
+    renderPaymentHistory(student)
 
-    setupNavigation();
+
+
     setupLogout();
     displayCurrentDate();
 
@@ -60,16 +63,25 @@ function renderDashboard(student) {
     const feesDisplay = document.getElementById("fees-display");
 
     // Dashboard Cards
-    const cgpaCard = document.getElementById("cgpa-card");
+   animateCounter(
+       document.getElementById("cgpa-card"),
+       Number(student.cgpa),
+       "decimal"
+   );
     const feesCard = document.getElementById("fees-card");
-    const attendanceCard =  document.getElementById("attendance-card");
-    const resultsCard = document.getElementById("results-card");
-    const coursesCard = document.getElementById("courses-card");
-    const announcementsCard = document.getElementById("announcements-card");
+
+    animateCounter(
+        document.getElementById("courses-card"),
+        student.courses.length
+    );
+    animateCounter(
+        document.getElementById("announcements-card"),
+        student.announcements.length
+    );
 
 
-  document.getElementById("student-avatar").src =
-  student.profileImage;
+ document.getElementById("student-avatar").src =
+ student.profileImage || "assets/default-avatar.png";
 
  const greeting = getGreeting();
   const welcomeMessage = document.getElementById("welcome-message");
@@ -98,11 +110,77 @@ function renderDashboard(student) {
 
 
 
-    // Dashboard Cards
-    cgpaCard.textContent = student.cgpa;
+    // Dashboard fees
     feesCard.textContent = student.fees.status;
-    coursesCard.textContent = student.courses.length;
-    announcementsCard.textContent = student.announcements.length;
+}
+function animateCounter(element, endValue, type = "number") {
+
+    if (endValue <= 0) {
+
+        switch (type) {
+
+            case "currency":
+                element.textContent = "₦0";
+                break;
+
+            case "decimal":
+                element.textContent = "0.00";
+                break;
+
+            default:
+                element.textContent = "0";
+
+        }
+
+        return;
+
+    }
+
+    let currentValue = 0;
+
+    const increment = endValue / 50;
+
+    const counter = setInterval(() => {
+
+        currentValue += increment;
+
+        if (currentValue >= endValue) {
+
+            currentValue = endValue;
+
+        }
+
+        switch (type) {
+
+            case "currency":
+
+                element.textContent =
+                    `₦${Math.floor(currentValue).toLocaleString()}`;
+
+                break;
+
+            case "decimal":
+
+                element.textContent =
+                    currentValue.toFixed(2);
+
+                break;
+
+            default:
+
+                element.textContent =
+                    Math.floor(currentValue);
+
+        }
+
+        if (currentValue >= endValue) {
+
+            clearInterval(counter);
+
+        }
+
+    }, 20);
+
 }
 function getGreeting() {
 
@@ -190,21 +268,56 @@ function renderProfile(student) {
 function renderAttendance(student) {
 
     const attendance = student.attendance;
+    const totalClasses = attendance.totalClasses;
+    const attended = attendance.attended;
+    const missed = totalClasses - attended;
+    const attendanceRate = (attended / totalClasses) * 100;
+    const attendancePercentage =
+                        (
+          student.attendance.attended /
+          student.attendance.totalClasses
+           ) * 100;
+   animateCounter(
+       document.getElementById("attendance-total-classes"),
+       totalClasses
+   );
 
-    document.getElementById("attendance-total")
-        .textContent = attendance.totalClasses;
+   animateCounter(
+       document.getElementById("attendance-attended"),
+       attended
+   );
 
-    document.getElementById("attendance-attended")
-        .textContent = attendance.attended;
+   animateCounter(
+       document.getElementById("attendance-missed"),
+       missed
+   );
 
-    document.getElementById("attendance-missed")
-        .textContent = attendance.missed;
+   animateCounter(
+       document.getElementById("attendance-rate"),
+       attendanceRate,
+       0
+   );
 
-    const percentage =
-        (attendance.attended / attendance.totalClasses) * 100;
+  const attendanceProgressBar = document.getElementById("attendance-progress-bar");
+  attendanceProgressBar.style.width = `${attendancePercentage}%`;
 
-    document.getElementById("attendance-rate")
-        .textContent = `${percentage.toFixed(1)}%`;
+
+   if (attendancePercentage >= 80) {
+
+      attendanceProgressBar.style.background = "#22c55e"; // Green
+
+   } else if (attendancePercentage >= 50) {
+
+      attendanceProgressBar.style.background = "#f59e0b"; // Orange
+
+   } else {
+
+     attendanceProgressBar.style.background = "#ef4444"; // Red
+
+   }
+   document.getElementById("attendance-progress-text")
+       .textContent =
+   `${attendance.attended} of ${attendance.totalClasses} Classes Attended (${attendancePercentage.toFixed(1)}%)`;
 
     const tableBody =
         document.getElementById("attendance-table-body");
@@ -213,7 +326,7 @@ function renderAttendance(student) {
     if(student.attendance.records.length === 0){
 
         showEmptyState(
-            tbody,
+            tableBody,
             "📅 No attendance records found.",
             3
         );
@@ -240,17 +353,17 @@ function renderAttendance(student) {
     });
 
 }
-function renderCourses(student) {
+function displayCourses(courses) {
 
-    const tableBody =
-        document.getElementById("courses-table-body");
+    const tableBody = document.getElementById("courses-table-body");
 
     tableBody.innerHTML = "";
-    if(student.courses.length === 0){
+
+    if (courses.length === 0) {
 
         showEmptyState(
-            tbody,
-            "📚 No registered courses yet.",
+            tableBody,
+            "📚 No courses available.",
             4
         );
 
@@ -258,7 +371,7 @@ function renderCourses(student) {
 
     }
 
-    student.courses.forEach(course => {
+    courses.forEach(course => {
 
         const row = document.createElement("tr");
 
@@ -272,79 +385,244 @@ function renderCourses(student) {
         tableBody.appendChild(row);
 
     });
+
 }
+function renderCourses(student) {
+
+    currentCourses = [...student.courses];
+
+    displayCourses(currentCourses);
+
+    animateCounter(
+
+        document.getElementById("course-total-courses"),
+
+        currentCourses.length
+
+    );
+
+    const totalUnits = currentCourses.reduce(
+
+        (sum, course) => sum + course.unit,
+
+        0
+
+    );
+
+    animateCounter(
+
+        document.getElementById("course-total-units"),
+
+        totalUnits
+
+    );
+
+    const lecturers = new Set(
+
+        currentCourses.map(course => course.lecturer)
+
+    );
+
+    animateCounter(
+
+        document.getElementById("course-total-lecturers"),
+
+        lecturers.size
+
+    );
+
+}
+function setupCourseSearch(){
+
+    const searchInput =
+        document.getElementById("courses-search");
+
+    searchInput.addEventListener("input", () => {
+
+        const searchText =
+            searchInput.value.toLowerCase();
+
+        const filteredCourses =
+            currentCourses.filter(course =>
+
+                course.code
+                    .toLowerCase()
+                    .includes(searchText)
+
+                ||
+
+                course.title
+                    .toLowerCase()
+                    .includes(searchText)
+
+            );
+
+        displayCourses(filteredCourses);
+
+    });
+
+}
+
 function renderResults(student) {
 
-    const tableBody =
-        document.getElementById("results-table-body");
+    currentResults = [...student.results];
 
-    tableBody.innerHTML = "";
-    if(student.results.length === 0){
 
-        showEmptyState(
-            tbody,
-            "🎓 No results available.",
-            3
-        );
-
-        return;
-
-    }
     let totalScore = 0;
     let passedCourses = 0;
     let failedCourses = 0;
 
-    student.results.forEach(result => {
+    currentResults.forEach(result => {
 
         totalScore += result.score;
-          if (result.grade === "F") {
-                failedCourses++;
-             } else {
-                passedCourses++;
-             }
-        const row = document.createElement("tr");
 
-        row.innerHTML = `
-            <td>${result.course}</td>
-            <td>${result.score}</td>
-            <td>
-            <span class ="grade-${result.grade.toLowerCase()}">
-            ${result.grade}
-            </span>
-            </td>
-        `;
+        if (result.grade === "F") {
 
-        tableBody.appendChild(row);
+            failedCourses++;
+
+        } else {
+
+            passedCourses++;
+
+        }
 
     });
-     document.getElementById("result-total-courses")
-            .textContent = student.results.length;
 
-        const average =
-            totalScore / student.results.length;
+    displayResults(currentResults);
 
-        document.getElementById("result-average-score")
-            .textContent = average.toFixed(2);
-         document.getElementById("result-passed-courses")
-             .textContent = passedCourses;
+    const averageScore =
+        totalScore / currentResults.length;
+   document.getElementById("result-total-courses")
+       .textContent = currentResults.length;
+    document.getElementById("result-average-score")
+        .textContent = averageScore.toFixed(1);
 
-         document.getElementById("result-failed-courses")
-             .textContent = failedCourses;
+    document.getElementById("result-passed-courses")
+        .textContent = passedCourses;
+
+    document.getElementById("result-failed-courses")
+        .textContent = failedCourses;
+
+}
+    function displayResults(results) {
+
+        const tableBody =
+            document.getElementById("results-table-body");
+
+        tableBody.innerHTML = "";
+
+        if (results.length === 0) {
+
+            showEmptyState(
+                tableBody,
+                "🎓 No results available.",
+                3
+            );
+
+            return;
+
+        }
+
+        results.forEach(result => {
+
+            const row = document.createElement("tr");
+
+            row.innerHTML = `
+                <td>${result.course}</td>
+                <td>${result.score}</td>
+                <td>
+                    <span class="grade-${result.grade.toLowerCase()}">
+                        ${result.grade}
+                    </span>
+                </td>
+            `;
+
+            tableBody.appendChild(row);
+
+        });
     }
+function setupResultsControls() {
+
+    const searchInput =
+        document.getElementById("results-search");
+
+    const gradeFilter =
+        document.getElementById("results-filter");
+
+    function filterResults() {
+
+        const searchText =
+            searchInput.value.toLowerCase();
+
+        const selectedGrade =
+            gradeFilter.value;
+
+        const filteredResults =
+            currentResults.filter(result => {
+
+                const matchesSearch =
+                    result.course
+                        .toLowerCase()
+                        .includes(searchText);
+
+                const matchesGrade =
+                    selectedGrade === "all" ||
+                    result.grade === selectedGrade;
+
+                return matchesSearch && matchesGrade;
+
+            });
+
+        displayResults(filteredResults);
+
+    }
+
+    searchInput.addEventListener(
+        "input",
+        filterResults
+    );
+
+    gradeFilter.addEventListener(
+        "change",
+        filterResults
+    );
+
+}
+function shouldAnimate(pageName) {
+
+    if (pageAnimations[pageName]) {
+
+        return false;
+
+    }
+
+    pageAnimations[pageName] = true;
+
+    return true;
+
+}
 
     function renderFees(student) {
 
         const fees = student.fees;
         const percentage = (fees.paidAmount / fees.totalAmount) * 100;
 
-        document.getElementById("fees-total")
-            .textContent = `${fees.totalAmount.toLocaleString()}`
-
-        document.getElementById("fees-paid")
-            .textContent = `${fees.paidAmount.toLocaleString()}`
-
-        document.getElementById("fees-outstanding")
-            .textContent =`${fees.outstandingAmount.toLocaleString()}`
+      if (shouldAnimate("fees")) {
+       animateCounter(
+           document.getElementById("fees-total"),
+           fees.totalAmount,
+           "currency"
+       );
+           animateCounter(
+               document.getElementById("fees-paid"),
+               fees.paidAmount,
+               "currency"
+           );
+            animateCounter(
+                document.getElementById("fees-outstanding"),
+                fees.outstandingAmount,
+                "currency"
+            );
 
        document.getElementById("fees-status").innerHTML = `
            <span class="status-${fees.status}
@@ -353,18 +631,40 @@ function renderResults(student) {
                ${fees.status}
            </span>
        `;
+
+       } else {
+
+           document.getElementById("fee-total").textContent = totalFees;
+
+           document.getElementById("fee-paid").textContent = paidFees;
+
+           document.getElementById("fee-outstanding").textContent = outstandingFees;
+
+           document.getElementById("fee-status").textContent = feeStatus;
+
+       }
        document.getElementById("progress-bar").style.width =
        `${percentage}%`;
 
-       document.getElementById("progress-text").textContent =
-       `${Math.round(percentage)}% Paid`;
+      document.getElementById("progress-text").textContent =
+      `₦${fees.paidAmount.toLocaleString()} of ₦${fees.totalAmount.toLocaleString()} Paid (${percentage.toFixed(1)}%)`;
     }
     function renderPaymentHistory(student){
 
         const tbody = document.getElementById("payment-history");
 
         tbody.innerHTML = "";
+        if(student.fees.history.length === 0){
 
+            showEmptyState(
+                tbody,
+                "💳 No payment history available.",
+                4
+            );
+
+            return;
+
+        }
         student.fees.history.forEach(payment => {
 
             const formattedDate =
@@ -406,7 +706,7 @@ function renderResults(student) {
          if(student.timetable.length === 0){
 
              showEmptyState(
-                 tbody,
+                timetableBody,
                  "🗓️ No timetable available.",
                  4
              );
@@ -512,7 +812,114 @@ function showPage(pageName, pages) {
         page.hidden = false;
     }
 }
-function setupNavigation() {
+function renderPage(pageName, student) {
+
+    switch (pageName) {
+
+        case "dashboard":
+            renderDashboard(student);
+            break;
+
+        case "profile":
+            renderProfile(student);
+            break;
+
+        case "fees":
+            renderFees(student);
+            break;
+
+        case "attendance":
+            renderAttendance(student);
+            break;
+
+        case "results":
+            renderResults(student);
+            break;
+
+        case "courses":
+            renderCourses(student);
+            break;
+
+        case "timetable":
+            renderTimetable(student);
+            break;
+
+        case "announcements":
+            renderAnnouncements(student);
+            break;
+
+    }
+
+}
+function updateThemeIcon(isDarkMode, themeToggle) {
+
+    themeToggle.textContent =
+        isDarkMode ? "☀️" : "🌙";
+
+}
+function setupTheme() {
+
+    const themeToggle =
+        document.getElementById("theme-toggle");
+
+    const savedTheme =
+        localStorage.getItem("theme");
+
+    if (savedTheme === "dark") {
+
+        document.body.classList.add("dark-mode");
+
+    }
+
+    updateThemeIcon(
+
+        document.body.classList.contains("dark-mode"),
+
+        themeToggle
+
+    );
+
+    themeToggle.addEventListener("click", () => {
+
+        themeToggle.style.transform = "rotate(180deg)";
+
+        setTimeout(() => {
+
+            themeToggle.style.transform = "";
+
+        }, 400);
+
+        document.body.classList.toggle("dark-mode");
+
+        const isDarkMode =
+            document.body.classList.contains("dark-mode");
+
+        if (isDarkMode) {
+
+            localStorage.setItem(
+                "theme",
+                "dark"
+            );
+
+        } else {
+
+            localStorage.removeItem("theme");
+
+        }
+
+        updateThemeIcon(
+
+            isDarkMode,
+
+            themeToggle
+
+        );
+
+    });
+
+}
+
+function setupNavigation(student) {
 
     const navLinks = document.querySelectorAll(".nav-link");
     const pages = document.querySelectorAll(".page");
@@ -529,9 +936,11 @@ function setupNavigation() {
 
             this.classList.add("active");
 
-            const pageName = this.dataset.page;
+           const pageName = this.dataset.page;
 
-            showPage(pageName, pages);
+           showPage(pageName, pages);
+
+           renderPage(pageName, student);
 
         });
 
